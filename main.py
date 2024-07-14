@@ -27,12 +27,10 @@ load_dotenv()
 
 configure_pretty_logging()
 
-logging.getLogger("uvicorn").debug=True
-
 logger.info("Starting telephony server")
 logger.debug("Debugging turned on....")
 
-app = FastAPI(docs_url=None, debug=True)
+app = FastAPI(docs_url=None)
 
 config_manager = RedisConfigManager()
 
