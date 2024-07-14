@@ -79,7 +79,7 @@ telephony_server = TelephonyServer(
             ),
         )
     ],
-    # agent_factory=SpellerAgentFactory(),
+    agent_factory=SpellerAgentFactory(),
 )
 
 app.include_router(telephony_server.get_router())

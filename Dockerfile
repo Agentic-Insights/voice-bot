@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir --upgrade poetry && \
     poetry install --no-dev --no-interaction --no-ansi
 
 # Copy application files
-COPY main.py speller_agent.py prompt_handler.py system_prompt.md /code/
+COPY inbound.py *_agent.py *_handler.py system_prompt.md /code/
 
 # Run the application
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3000"]
+CMD ["uvicorn", "inbound:app", "--host", "0.0.0.0", "--port", "3000"]
