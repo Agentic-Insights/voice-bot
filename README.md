@@ -8,12 +8,20 @@ Voice Bot Server leverages the power of Vocode to support using AI agents with i
 
 ## Requirements
 
-- [Ngrok](https://ngrok.com/) or [Cloudflare Tunnels](https://www.cloudflare.com/products/tunnel/) (used to host the TelephonyServer locally)
-- [ffmpeg](https://ffmpeg.org/)
-  - If you have Homebrew installed, run `brew install ffmpeg`
-- [Redis](https://redis.io/)
-  - If you have Homebrew installed, run `brew install redis`
-- (optional) [Docker](https://www.docker.com/)
+- [Docker](https://www.docker.com/) (required for running the project)
+
+The project uses the following components, which are automatically set up through Docker:
+
+- [ffmpeg](https://ffmpeg.org/) (for audio processing)
+- [Redis](https://redis.io/) (for data storage and caching)
+
+These dependencies are defined in the `docker-compose.yml` file and will be pulled in automatically when you run the project.
+
+For local testing and development:
+
+- [Ngrok](https://ngrok.com/) or [Cloudflare Tunnels](https://www.cloudflare.com/products/tunnel/) (optional, used to expose your local server to the internet for testing purposes)
+
+Note: Ngrok or Cloudflare Tunnels are not required for deployment but can be useful for local testing and development.
 
 ## Environment Setup
 
@@ -93,7 +101,13 @@ Choose one of these two options to run the server:
 
 ## Configuration
 
-The default transcriber is Deepgram and the default synthesizer is ElevenLabs.
+Both the `OutboundCall` (in `outbound_call.py`) and `InboundCallConfig` (in `main.py`) classes can accept a `TranscriberConfig`, `AgentConfig`, or `SynthesizerConfig`. 
+
+### Transcriber
+The default transcriber is Deepgram
+
+### Synthesizer
+The default synthesizer is ElevenLabs
 
 To configure ElevenLabs, make sure you have set the following environment variables in your `.env` file:
 
@@ -104,9 +118,12 @@ ELEVEN_LABS_VOICE_ID=your_preferred_voice_id_here
 
 You can find your API key in your ElevenLabs account settings, and you can choose a voice ID from the available voices in your ElevenLabs dashboard.
 
-Both the `OutboundCall` (in `outbound_call.py`) and `InboundCallConfig` (in `main.py`) classes can accept a `TranscriberConfig`, `AgentConfig`, or `SynthesizerConfig`. The default transcriber is Deepgram and the default synthesizer is Azure.
 
 ## Creating Custom Agents
 
 You can create custom agents by subclassing `BaseAgent` and creating an `AgentFactory`. For example:
+
+
+
+
 
