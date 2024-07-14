@@ -1,12 +1,19 @@
+# Base image
 FROM vocodedev/vocode:latest
 
+# Set working directory
 WORKDIR /code
-COPY ./pyproject.toml /code/pyproject.toml
-COPY ./poetry.lock /code/poetry.lock
-RUN pip install --no-cache-dir --upgrade poetry
-RUN poetry config virtualenvs.create false
-RUN poetry install --no-dev --no-interaction --no-ansi
-COPY main.py /code/main.py
-COPY speller_agent.py /code/speller_agent.py
 
+# Copy dependency files
+COPY ./pyproject.toml ./poetry.lock /code/
+
+# Install dependencies
+RUN pip install --no-cache-dir --upgrade poetry && \
+    poetry config virtualenvs.create false && \
+    poetry install --no-dev --no-interaction --no-ansi
+
+# Copy application files
+COPY main.py speller_agent.py prompt_handler.py system_prompt.md /code/
+
+# Run the application
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3000"]
