@@ -1,0 +1,24 @@
+services:
+  redis:
+    image: redis:7.0.9-alpine
+    command: redis-server --bind 0.0.0.0
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+  app:
+    image: voice-bot-server
+    env_file:
+      - .env
+    ports:
+      - 6000:3000
+    depends_on:
+      - redis
+    environment:
+      - REDISHOST=redis
+    volumes:
+      - vb_data:/code
+
+volumes:
+  redis_data:
+  vb_data:

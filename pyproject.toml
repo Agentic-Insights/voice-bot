@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "voice-bot-server"
+version = "0.1.0"
+description = ""
+authors = ["Vaskin Kissoyan <vaskin@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+python-dotenv = "^1.0.1"
+azure-cognitiveservices-speech = "^1.38.0"
+vocode = "0.1.113"
+vonage = "^3.16.0"
+elevenlabs = "^1.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
