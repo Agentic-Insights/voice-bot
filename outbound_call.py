@@ -18,13 +18,13 @@ from speller_agent import SpellerAgentConfig
 
 load_dotenv()
 
-BASE_URL = os.environ["BASE_URL"]
+BASE_URI = os.environ["BASE_URI"]
 
 async def main():
     config_manager = RedisConfigManager()
 
     outbound_call = OutboundCall(
-        base_url=BASE_URL,
+        BASE_URI=BASE_URI,
         to_phone=os.environ["TO_PHONE"],
         from_phone=os.environ["FROM_PHONE"],
         config_manager=config_manager,

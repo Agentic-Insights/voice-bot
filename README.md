@@ -87,7 +87,7 @@ Choose one of these two options to run the server:
 1. Create a Twilio account
 2. In your Twilio dashboard, go to Phone Numbers -> Manage -> Buy a number to get a phone number
 3. Go to Phone Numbers -> Manage -> Active Numbers and select the number you want to set up
-4. Update the config to point the Webhook URL to `https://<YOUR BASE URL>/inbound_call`
+4. Update the config to point the Webhook URL to `https://<BASE_URI>/inbound_call`
 5. Hit Save and call the number!
 
 ## 📤 Executing Outbound Calls
