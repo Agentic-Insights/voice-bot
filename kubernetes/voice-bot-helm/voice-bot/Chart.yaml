@@ -1,0 +1,44 @@
+apiVersion: v2
+name: voice-bot
+description: A Helm chart for deploying the Voice Bot Server on Kubernetes
+
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+appVersion: "1.0.0"
+
+# Keywords can be used to improve searchability of your chart
+keywords:
+  - voice-bot
+  - ai
+  - telephony
+  - vocode
+
+# Home URL of the project
+home: https://github.com/killerapp/voice-bot-server
+
+# Source code URL
+sources:
+  - https://github.com/killerapp/voice-bot-server
+
+# Maintainer information
+maintainers:
+  - name: Agentic Insights
+    email: info@agenticinsights.com
+
+# Icon for the chart (optional)
+icon: https://agenticinsights.com/public/agentic-insights-logo.png
+
+# Annotations can be used to add additional metadata
+annotations:
+  category: AI
+
+# Custom fields for additional information
+kubeVersion: ">=1.16.0-0"

@@ -27,13 +27,13 @@ from vocode.streaming.action.dtmf import TwilioDTMF
 # if running from python, this will load the local .env
 # docker-compose will load the .env file by itself
 load_dotenv()
-
 configure_pretty_logging()
 
 logger.info("🤖 Voice Bot Server starting...")
 
 app = FastAPI(docs_url=None)
 
+REDIS_HOST = os.getenv("REDIS_HOST", "voice-bot-redis")
 config_manager = RedisConfigManager()
 
 BASE_URI = os.getenv("BASE_URI")

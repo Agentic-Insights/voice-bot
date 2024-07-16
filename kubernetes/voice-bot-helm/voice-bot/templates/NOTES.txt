@@ -1,0 +1,25 @@
+Voice Bot has been successfully installed!
+
+Unique identifiers:
+- Release Name: {{ .Release.Name }}
+- Release Namespace: {{ .Release.Namespace }}
+- Chart Name: {{ include "voice-bot.name" . }}
+- Full Name: {{ include "voice-bot.fullname" . }}
+
+To view the logs of your Voice Bot deployment:
+  kubectl logs --namespace {{ .Release.Namespace }} deployment/{{ include "voice-bot.fullname" . }}
+
+To forward the Voice Bot port to 6000 (default):
+  kubectl port-forward --namespace {{ .Release.Namespace }} service/{{ include "voice-bot.fullname" . }} 6000:{{ .Values.service.port }}
+
+{{- if .Values.ingress.enabled }}
+Ingress is enabled. You can access the application at:
+{{- range $host := .Values.ingress.hosts }}
+{{- range .paths }}
+  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}{{ .path }}
+{{- end }}
+{{- end }}
+{{- else }}
+Ingress is not enabled. You can access the application using port-forwarding as shown above.
+WARNING: Workaround: k8s-port-forward.bat - forwarding through a service may fail.
+{{- end }}

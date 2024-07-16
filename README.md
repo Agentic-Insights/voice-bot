@@ -108,3 +108,84 @@ The default transcriber is Deepgram
 
 ### 🗣️ Synthesizer
 The default synthesizer is ElevenLabs
+
+## 🚀 Deployment with Helm and Kubernetes
+
+### Prerequisites
+
+- Kubernetes cluster (e.g., Minikube, EKS, GKE, AKS)
+- Helm 3.0+
+- kubectl configured to communicate with your cluster
+
+### Deployment Steps
+
+1. Clone the repository and navigate to the project directory:
+   ```
+   git clone https://github.com/yourusername/voice-bot-server.git
+   cd voice-bot-server
+   ```
+
+2. Create a `my-values.yaml` file in the project root with your specific configuration:
+   ```yaml
+   env:
+     BASE_URI: "your-base-uri"
+     DEEPGRAM_API_KEY: "your-deepgram-key"
+     OPENAI_API_KEY: "your-openai-key"
+     AZURE_SPEECH_KEY: "your-azure-speech-key"
+     AZURE_SPEECH_REGION: "your-azure-speech-region"
+     ELEVEN_LABS_API_KEY: "your-eleven-labs-key"
+     ELEVEN_LABS_VOICE_ID: "your-eleven-labs-voice-id"
+     TWILIO_ACCOUNT_SID: "your-twilio-sid"
+     TWILIO_AUTH_TOKEN: "your-twilio-token"
+     FROM_PHONE: "your-from-phone"
+     TO_PHONE: "your-to-phone"
+   ```
+
+3. Install the Helm chart:
+   ```
+   helm install voice-bot ./kubernetes/voice-bot-helm/voice-bot -f my-values.yaml
+   ```
+
+4. Check the status of your deployment:
+   ```
+   kubectl get pods
+   kubectl get services
+   ```
+
+5. To access your application, set up port-forwarding:
+   ```
+   k8s-port-forward.bat
+   (TODO does not work) kubectl port-forward service/voice-bot 6000:3000 (/TODO)
+   ```
+   Your application should now be accessible at `http://localhost:6000`.
+
+### Updating the Deployment
+
+To update your deployment after making changes:
+
+```
+helm upgrade voice-bot ./kubernetes/voice-bot-helm/voice-bot -f my-values.yaml
+```
+
+### Uninstalling the Deployment
+
+To remove the Voice Bot Server from your cluster:
+
+```
+helm uninstall voice-bot
+```
+
+### Troubleshooting
+
+- If you encounter issues, check the logs of your pods:
+  ```
+  kubectl logs deployment/voice-bot
+  ```
+
+- For more detailed information about your deployment:
+  ```
+  kubectl describe deployment voice-bot
+  kubectl describe service voice-bot
+  ```
+
+Remember to update your Twilio webhook URL to point to your new Kubernetes-hosted Voice Bot Server.

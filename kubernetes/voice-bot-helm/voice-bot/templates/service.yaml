@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "voice-bot.fullname" . }}
+  labels:
+    {{- include "voice-bot.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 3000
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "voice-bot.selectorLabels" . | nindent 4 }}
+---
+{{- if and .Values.redis .Values.redis.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "voice-bot.fullname" . }}-redis
+  labels:
+    {{- include "voice-bot.labels" . | nindent 4 }}
+    app.kubernetes.io/component: redis
+spec:
+  type: ClusterIP
+  ports:
+    - port: 6379
+      targetPort: redis
+      protocol: TCP
+      name: redis
+  selector:
+    {{- include "voice-bot.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: redis
+{{- end }}
