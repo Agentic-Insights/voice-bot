@@ -854,13 +854,13 @@ socks = ["socksio (==1.*)"]
 
 [[package]]
 name = "huggingface-hub"
-version = "0.23.4"
+version = "0.23.5"
 description = "Client library to download and publish models, datasets and other repos on the huggingface.co hub"
 optional = false
 python-versions = ">=3.8.0"
 files = [
-    {file = "huggingface_hub-0.23.4-py3-none-any.whl", hash = "sha256:3a0b957aa87150addf0cc7bd71b4d954b78e749850e1e7fb29ebbd2db64ca037"},
-    {file = "huggingface_hub-0.23.4.tar.gz", hash = "sha256:35d99016433900e44ae7efe1c209164a5a81dbbcd53a52f99c281dcd7ce22431"},
+    {file = "huggingface_hub-0.23.5-py3-none-any.whl", hash = "sha256:d7a7d337615e11a45cc14a0ce5a605db6b038dc24af42866f731684825226e90"},
+    {file = "huggingface_hub-0.23.5.tar.gz", hash = "sha256:67a9caba79b71235be3752852ca27da86bd54311d2424ca8afdb8dda056edf98"},
 ]
 
 [package.dependencies]
@@ -2500,50 +2500,52 @@ test = ["Cython (>=0.29.36,<0.30.0)", "aiohttp (==3.9.0b0)", "aiohttp (>=3.8.1)"
 
 [[package]]
 name = "vocode"
-version = "0.1.113"
+version = "0.1.114a0"
 description = "The all-in-one voice SDK"
 optional = false
-python-versions = "<4.0,>=3.10"
-files = [
-    {file = "vocode-0.1.113-py3-none-any.whl", hash = "sha256:7e99a12c74ba09654489d3743e0512bbdc378961f42c143d2705ca4a323a5784"},
-    {file = "vocode-0.1.113.tar.gz", hash = "sha256:3e7cb142cea58764bd17d411b973eda9082642a70e56cce5b36a5a9021165451"},
-]
+python-versions = ">=3.10,<4.0"
+files = []
+develop = true
 
 [package.dependencies]
-aiohttp = ">=3.9.5,<4.0.0"
-anthropic = ">=0.28.0,<0.29.0"
-azure-cognitiveservices-speech = ">=1.38.0,<2.0.0"
-elevenlabs = ">=1.2.2,<2.0.0"
-fastapi = ">=0.111.0,<0.112.0"
-janus = ">=1.0.0,<2.0.0"
-jinja2 = ">=3.1.4,<4.0.0"
-jsonschema = ">=4.22.0,<5.0.0"
-loguru = ">=0.7.2,<0.8.0"
-miniaudio = ">=1.59.0,<2.0.0"
-nltk = ">=3.8.1,<4.0.0"
-numpy = ">=1.26.4,<2.0.0"
-openai = ">=1.30.5,<2.0.0"
-opentelemetry-sdk = ">=1.24.0,<2.0.0"
-phonenumbers = ">=8.13.37,<9.0.0"
-pydantic = ">=2.7.2,<3.0.0"
-pydantic-settings = ">=2.3.0,<3.0.0"
-pydub = ">=0.25.1,<0.26.0"
-pyht = ">=0.0.28,<0.0.29"
-redis = ">=5.0.4,<6.0.0"
-requests = ">=2.32.3,<3.0.0"
-sentry-sdk = {version = ">=2.3.1,<3.0.0", extras = ["fastapi"]}
-sounddevice = ">=0.4.7,<0.5.0"
-tiktoken = ">=0.7.0,<0.8.0"
-uvicorn = ">=0.30.0,<0.31.0"
-websockets = ">=12.0,<13.0"
+aiohttp = "^3.9.5"
+anthropic = "^0.28.0"
+azure-cognitiveservices-speech = "^1.38.0"
+elevenlabs = "^1.2.2"
+fastapi = "^0.111.0"
+janus = "^1.0.0"
+jinja2 = "^3.1.4"
+jsonschema = "^4.22.0"
+loguru = "^0.7.2"
+miniaudio = "^1.59.0"
+nltk = "^3.8.1"
+numpy = "^1.26.4"
+openai = "^1.30.5"
+opentelemetry-sdk = "^1.24.0"
+phonenumbers = "^8.13.37"
+pydantic = "^2.7.2"
+pydantic-settings = "^2.3.0"
+pydub = "^0.25.1"
+pyht = "^0.0.28"
+redis = "^5.0.4"
+requests = "^2.32.3"
+sentry-sdk = {version = "^2.3.1", extras = ["fastapi"]}
+sounddevice = "^0.4.7"
+tiktoken = "^0.7.0"
+uvicorn = "^0.30.0"
+websockets = "^12.0"
 
 [package.extras]
-all = ["cartesia (>=0.1.1,<0.2.0)", "google-cloud-speech (>=2.26.0,<3.0.0)", "google-cloud-texttospeech (>=2.16.3,<3.0.0)", "langchain (>=0.2.3,<0.3.0)", "langchain-anthropic (>=0.1.15,<0.2.0)", "langchain-community (>=0.2.4,<0.3.0)", "langchain-google-vertexai (>=1.0.5,<2.0.0)", "langchain-openai (>=0.1.8,<0.2.0)", "pvkoala (>=2.0.1,<3.0.0)", "twilio (>=9.1.0,<10.0.0)", "vonage (>=3.14.0,<4.0.0)"]
+all = ["cartesia (>=1.0.3,<2.0.0)", "google-cloud-speech (>=2.26.0,<3.0.0)", "google-cloud-texttospeech (>=2.16.3,<3.0.0)", "groq (>=0.9.0,<0.10.0)", "langchain (>=0.2.3,<0.3.0)", "langchain-anthropic (>=0.1.15,<0.2.0)", "langchain-community (>=0.2.4,<0.3.0)", "langchain-google-vertexai (>=1.0.5,<2.0.0)", "langchain-openai (>=0.1.8,<0.2.0)", "livekit (>=0.11.1,<0.12.0)", "pvkoala (>=2.0.1,<3.0.0)", "twilio (>=9.1.0,<10.0.0)", "vonage (>=3.14.0,<4.0.0)"]
 langchain = ["langchain (>=0.2.3,<0.3.0)", "langchain-community (>=0.2.4,<0.3.0)"]
 langchain-extras = ["langchain-anthropic (>=0.1.15,<0.2.0)", "langchain-google-vertexai (>=1.0.5,<2.0.0)", "langchain-openai (>=0.1.8,<0.2.0)"]
-synthesizers = ["cartesia (>=0.1.1,<0.2.0)", "google-cloud-texttospeech (>=2.16.3,<3.0.0)", "pvkoala (>=2.0.1,<3.0.0)"]
+synthesizers = ["cartesia (>=1.0.3,<2.0.0)", "google-cloud-texttospeech (>=2.16.3,<3.0.0)", "pvkoala (>=2.0.1,<3.0.0)"]
 telephony = ["twilio (>=9.1.0,<10.0.0)", "vonage (>=3.14.0,<4.0.0)"]
 transcribers = ["google-cloud-speech (>=2.26.0,<3.0.0)"]
+
+[package.source]
+type = "directory"
+url = "../vocode-core"
 
 [[package]]
 name = "watchfiles"
@@ -2927,4 +2929,4 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.12"
-content-hash = "38f727e2441ce706780e66b62802d845a8659ad34b83264ec613fec358bd4279"
+content-hash = "3be74bdf6b739557fe177d6efdfd8e2c763ae6d5265bdec3f84c170e71742fa2"

@@ -1,6 +1,5 @@
 # Standard library imports
 import os
-import logging
 from dotenv import load_dotenv
 
 # Third-party imports
@@ -67,6 +66,7 @@ telephony_server = TelephonyServer(
                 send_filler_audio=True,
                 allowed_idle_time_seconds=30,
                 interrupt_sensitivity="high",
+                base_url_override="https://ollama-server.aegenticinsights.com/v1"
             ),
             
             # uncomment this to use the speller agent instead

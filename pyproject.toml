@@ -9,9 +9,8 @@ package-mode = false
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
 python-dotenv = "^1.0.1"
-vocode = "0.1.113"
+vocode = {path = "../vocode-core", develop = true}
 elevenlabs = "^1.2.2"
-
 
 [build-system]
 requires = ["poetry-core"]
