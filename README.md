@@ -39,9 +39,9 @@ Note: Ngrok or Cloudflare Tunnels are not required for deployment but can be use
    ```
    ngrok http 6000
    ```
-   Copy the URL that is tunneling localhost:3000 to your `.env` without `https://`, e.g.:
+   Copy the URI that is tunneling localhost:3000 to your `.env` without `https://`, e.g.:
    ```
-   BASE_URL=asdf1234.ngrok.app
+   BASE_URI=asdf1234.ngrok.app
    ```
 
 ## 📞 Telephony Server
@@ -128,9 +128,10 @@ The default synthesizer is ElevenLabs
 2. Create a `my-values.yaml` file in the project root with your specific configuration:
    ```yaml
    env:
-     BASE_URI: "your-base-uri"
+     BASE_URI: "application-base-uri"
      DEEPGRAM_API_KEY: "your-deepgram-key"
      OPENAI_API_KEY: "your-openai-key"
+     OPENAI_BASE_URL: "your-openai-based-base-url"
      ELEVEN_LABS_API_KEY: "your-eleven-labs-key"
      ELEVEN_LABS_VOICE_ID: "your-eleven-labs-voice-id"
      TWILIO_ACCOUNT_SID: "your-twilio-sid"
