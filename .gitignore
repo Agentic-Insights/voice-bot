@@ -5,3 +5,4 @@ __pycache__/
 .env
 
 system_prompt.md
+my-values.yaml

@@ -86,7 +86,7 @@ redis:
   enabled: true
   image:
     repository: redis
-    tag: 7.0.9-alpine
+    tag: 7.2-alpine
 
 env:
   BASE_URI: ""
@@ -94,8 +94,6 @@ env:
   OPENAI_API_KEY: ""
   ANTHROPIC_API_KEY: ""
   LLM_MODEL: ""
-  AZURE_SPEECH_KEY: ""
-  AZURE_SPEECH_REGION: ""
   ELEVEN_LABS_API_KEY: ""
   ELEVEN_LABS_VOICE_ID: ""
   TWILIO_ACCOUNT_SID: ""

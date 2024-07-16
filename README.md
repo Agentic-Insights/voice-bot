@@ -131,8 +131,6 @@ The default synthesizer is ElevenLabs
      BASE_URI: "your-base-uri"
      DEEPGRAM_API_KEY: "your-deepgram-key"
      OPENAI_API_KEY: "your-openai-key"
-     AZURE_SPEECH_KEY: "your-azure-speech-key"
-     AZURE_SPEECH_REGION: "your-azure-speech-region"
      ELEVEN_LABS_API_KEY: "your-eleven-labs-key"
      ELEVEN_LABS_VOICE_ID: "your-eleven-labs-voice-id"
      TWILIO_ACCOUNT_SID: "your-twilio-sid"
