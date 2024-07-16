@@ -66,7 +66,7 @@ telephony_server = TelephonyServer(
                 send_filler_audio=True,
                 allowed_idle_time_seconds=30,
                 interrupt_sensitivity="high",
-                base_url_override="https://ollama-server.aegenticinsights.com/v1"
+                base_url_override=os.environ["OPENAI_BASE_URL"]
             ),
             
             # uncomment this to use the speller agent instead
