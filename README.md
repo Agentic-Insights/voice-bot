@@ -1,10 +1,10 @@
-# 🤖 Voice Bot Server
+# 🤖 Voice Bot
 
 Voice Bot Server is a custom version of Vocode Telephony Server with FastAPI, designed for creating intelligent voice agents for phone calls. This project enables you to build and deploy conversational AI agents that can handle inbound and outbound phone calls for various use cases such as information collection, appointment scheduling, sales, customer support, and more.
 
 ## 🌟 Overview
 
-Voice Bot Server leverages the power of Vocode to support using AI agents with inbound and outbound phone calls. Users can create their own custom agents and integrate them seamlessly into their telephony systems.
+Voice Bot leverages the power of Vocode to support using AI agents with inbound and outbound phone calls. Users can create their own custom agents and integrate them seamlessly into their telephony systems.
 
 ## 📋 Requirements
 
