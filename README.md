@@ -94,15 +94,18 @@ Choose one of these two options to run the server:
 ## 📤 Executing Outbound Calls
 
 1. Ensure the server is running
-2. In `outbound_call.py`, replace `to_phone` with the number you want to call and `from_phone` with your Twilio number
-3. Run the script:
+2. Install Poetry and dependencies:
+   ```
+   poetry 
+3. Ensure .env has `TO_PHONE` set as the number you want to call and `FROM_PHONE` with your Twilio number.
+4. Run the script:
    ```
    poetry run python outbound_call.py
    ```
 
 ## ⚙️ Configuration
 
-Both the `OutboundCall` (in `outbound_call.py`) and `InboundCallConfig` (in `main.py`) classes can accept a `TranscriberConfig`, `AgentConfig`, or `SynthesizerConfig`. 
+Both the `OutboundCall` (in `outbound_call.py`) and `InboundCallConfig` (in `inbound.py`) classes can accept a `TranscriberConfig`, `AgentConfig`, or `SynthesizerConfig`. 
 
 ### 🎙️ Transcriber
 The default transcriber is Deepgram
