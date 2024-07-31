@@ -51,10 +51,6 @@ The TelephonyServer is responsible for receiving and making phone calls. The ser
 
 ### 🚀 Running the Server
 
-Choose one of these two options to run the server:
-
-#### Option 1: Run everything with Docker
-
 1. Build the telephony app Docker image:
    ```
    docker build -t voice-bot-server .
@@ -62,25 +58,6 @@ Choose one of these two options to run the server:
 2. Run the application using docker-compose:
    ```
    docker-compose up
-   ```
-
-#### Option 2: Run Python directly
-
-1. Install Poetry and dependencies:
-   ```
-   poetry install
-   ```
-2. Run Redis (default port 6379):
-   ```
-   brew services start redis
-   ```
-   Or using Docker:
-   ```
-   docker run -dp 6379:6379 -it redis/redis-stack:latest
-   ```
-3. Run the server with uvicorn:
-   ```
-   poetry run uvicorn main:app --port 3000
    ```
 
 ## 📥 Setting up an Inbound Number
