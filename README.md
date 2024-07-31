@@ -10,6 +10,12 @@ Voice Bot leverages the power of Vocode to support using AI agents with inbound 
 
 - 🐳 [Docker](https://www.docker.com/) (required for running the project)
 
+API keys for:
+   - 🎙️ Deepgram (for speech transcription)
+   - 🧠 OpenAI (for the underlying agent)
+   - 🗣️ ElevenLabs (for speech synthesis)
+   - 📞 Twilio (for telephony)- 
+
 The project uses the following components, which are automatically set up through Docker:
 
 - 🎬 [ffmpeg](https://ffmpeg.org/) (for audio processing)
@@ -29,11 +35,6 @@ Note: Ngrok or Cloudflare Tunnels are not required for deployment but can be use
    ```
    cp .env.template .env
    ```
-   You'll need to get API keys for:
-   - 🎙️ Deepgram (for speech transcription)
-   - 🧠 OpenAI (for the underlying agent)
-   - 🗣️ ElevenLabs (for speech synthesis)
-   - 📞 Twilio (for telephony)
 
 2. Set up hosting so that Twilio can hit your server. An easy way to do this is ngrok or cloudflare:
    ```
