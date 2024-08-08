@@ -13,10 +13,10 @@ RUN pip install --no-cache-dir --upgrade poetry && \
     poetry install --no-dev --no-interaction --no-ansi
 
 # Copy application files
-COPY inbound.py *_agent.py *_handler.py system_prompt.md /code/
+COPY app/* /code
 
 # Expose the port the app runs on
 EXPOSE 3000
 
 # Run the application
-CMD ["uvicorn", "inbound:app", "--host", "0.0.0.0", "--port", "3000"]
+CMD ["uvicorn", "app.inbound:app", "--host", "0.0.0.0", "--port", "3000"]

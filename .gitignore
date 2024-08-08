@@ -1,5 +1,6 @@
 __pycache__/
 .venv/
+app/__pycache__/
 .DS_Store
 .conda/
 .env
