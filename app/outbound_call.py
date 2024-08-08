@@ -14,8 +14,6 @@ from vocode.streaming.telephony.conversation.outbound_call import OutboundCall
 from vocode.streaming.synthesizer.eleven_labs_synthesizer import ElevenLabsSynthesizerConfig
 from vocode.streaming.synthesizer.eleven_labs_synthesizer import AudioEncoding
 
-from speller_agent import SpellerAgentConfig
-
 load_dotenv()
 
 BASE_URI = os.environ["BASE_URI"]
