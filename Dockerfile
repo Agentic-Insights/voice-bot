@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir --upgrade poetry && \
     poetry install --no-dev --no-interaction --no-ansi
 
 # Copy application files
-COPY . /code
+COPY app/* /code
 
 # Expose the port the app runs on
 EXPOSE 3000
