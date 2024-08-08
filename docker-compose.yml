@@ -7,7 +7,7 @@ services:
     volumes:
       - redis_data:/data
   app:
-    image: voice-bot-server
+    image: voice-bot-server:latest
     env_file:
       - .env
     ports:
