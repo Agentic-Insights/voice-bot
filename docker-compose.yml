@@ -17,7 +17,7 @@ services:
     environment:
       - REDISHOST=redis
     volumes:
-      - vb_data:/code
+      - ./:/code
 
 volumes:
   redis_data:
