@@ -1,6 +1,6 @@
 # 🤖 Voice Bot
 
-Voice Bot Server is a custom version of Vocode Telephony Server with FastAPI, designed for creating intelligent voice agents for phone calls. This project enables you to build and deploy conversational AI agents that can handle inbound and outbound phone calls for various use cases such as information collection, appointment scheduling, sales, customer support, and more.
+Voice Bot Server is an opinionated version of Vocode Telephony Server with FastAPI - Deepgram, OpenAI, and ElevenLabs are used here to achieve a realistic sounding agent. This project enables you to build and deploy conversational AI agents that can handle inbound and outbound phone calls for various use cases such as information collection, appointment scheduling, sales, customer support, and more.
 
 ## 🌟 Overview
 
@@ -14,7 +14,7 @@ API keys for:
    - 🎙️ Deepgram (for speech transcription)
    - 🧠 OpenAI (for the underlying agent)
    - 🗣️ ElevenLabs (for speech synthesis)
-   - 📞 Twilio (for telephony)- 
+   - 📞 Twilio (for telephony)
 
 The project uses the following components, which are automatically set up through Docker:
 
@@ -102,8 +102,8 @@ The default synthesizer is ElevenLabs
 
 1. Clone the repository and navigate to the project directory:
    ```
-   git clone https://github.com/yourusername/voice-bot-server.git
-   cd voice-bot-server
+   git clone https://github.com/Agentic-Insights/voice-bot
+   cd voice-bot
    ```
 
 2. Create a `my-values.yaml` file in the project root with your specific configuration:

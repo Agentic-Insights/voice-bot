@@ -85,6 +85,8 @@ telephony_server = TelephonyServer(
                 voice_id=os.environ["ELEVEN_LABS_VOICE_ID"],
                 sampling_rate=8000,
                 audio_encoding=AudioEncoding.MULAW,
+                experimental_streaming=True,
+                experimental_websocket=True
             ),
         )
     ],
