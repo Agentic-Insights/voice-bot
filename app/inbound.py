@@ -7,6 +7,12 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from loguru import logger
 
+#Prometheus
+from prometheus_client import start_http_server, Counter, Gauge
+import random
+import time
+
+
 # Local application/library specific imports
 # from app.speller_agent import SpellerAgentFactory, SpellerAgentConfig
 from .prompt_handler import get_system_prompt
