@@ -12,11 +12,6 @@ from loguru import logger
 from prometheus_client import start_http_server, Counter, Gauge
 import time
 
-# Prometheus
-from prometheus_client import start_http_server, Counter, Gauge
-import time
-
-
 # Local application/library specific imports
 # from app.speller_agent import SpellerAgentFactory, SpellerAgentConfig
 from .prompt_handler import get_system_prompt
@@ -42,11 +37,6 @@ load_dotenv()
 configure_pretty_logging()
 
 logger.info("🤖 Voice Bot Server starting...")
-
-# Create Prometheus metrics
-SESSION_COUNTER = Counter('voicebot_session_count', 'Number of sessions started')
-SESSION_GAUGE = Gauge('voicebot_active_sessions', 'Current number of active sessions')
-
 
 # Start Prometheus HTTP server
 start_http_server(8000)
