@@ -7,9 +7,8 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from loguru import logger
 
-#Prometheus
+# Prometheus
 from prometheus_client import start_http_server, Counter, Gauge
-import random
 import time
 
 
@@ -37,6 +36,25 @@ configure_pretty_logging()
 
 logger.info("🤖 Voice Bot Server starting...")
 
+# Create Prometheus metrics
+SESSION_COUNTER = Counter('voicebot_session_count', 'Number of sessions started')
+SESSION_GAUGE = Gauge('voicebot_active_sessions', 'Current number of active sessions')
+
+def start_new_session(session_id):
+    # Increment session counter
+    SESSION_COUNTER.inc()
+    SESSION_GAUGE.inc()
+    logger.info(f"Session {session_id} started")
+
+def end_session(session_id):
+    # Decrement active sessions gauge
+    SESSION_GAUGE.dec()
+    logger.info(f"Session {session_id} ended")
+
+# Start Prometheus HTTP server
+start_http_server(8000)
+logger.info("Prometheus metrics server started on port 8000")
+
 app = FastAPI(docs_url=None)
 
 REDIS_HOST = os.getenv("REDIS_HOST", "voice-bot-redis")
@@ -57,12 +75,24 @@ anthropic_config=AnthropicAgentConfig(
     generate_responses=True,
 )
 
+# Create a custom call handler that wraps the original handler and adds session tracking
+def create_session_tracking_call_handler(original_handler):
+    async def session_tracking_call_handler(call):
+        session_id = call.conversation_id
+        start_new_session(session_id)
+        try:
+            return await original_handler(call)
+        finally:
+            end_session(session_id)
+    return session_tracking_call_handler
+
 telephony_server = TelephonyServer(
     base_url=BASE_URI,
     config_manager=config_manager,
     inbound_call_configs=[
         TwilioInboundCallConfig(
             url="/inbound_call",
+            call_handler=create_session_tracking_call_handler(TwilioInboundCallConfig.default_call_handler),
             agent_config=ChatGPTAgentConfig(
                 initial_message=BaseMessage(text="Hello there, what's your name?"),
                 prompt_preamble=system_prompt,
