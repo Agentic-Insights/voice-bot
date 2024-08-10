@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 # Third-party imports
 from fastapi import FastAPI
+from typing import List
 from loguru import logger
 
 # Prometheus
