@@ -11,6 +11,10 @@ from loguru import logger
 from prometheus_client import start_http_server, Counter, Gauge
 import time
 
+# Prometheus
+from prometheus_client import start_http_server, Counter, Gauge
+import time
+
 
 # Local application/library specific imports
 # from app.speller_agent import SpellerAgentFactory, SpellerAgentConfig
