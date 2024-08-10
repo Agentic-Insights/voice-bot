@@ -20,6 +20,7 @@ The project uses the following components, which are automatically set up throug
 
 - 🎬 [ffmpeg](https://ffmpeg.org/) (for audio processing)
 - 🗄️ [Redis](https://redis.io/) (for data storage and caching)
+- 📊 [Prometheus](https://prometheus.io/) (for metrics collection)
 
 These dependencies are defined in the `docker-compose.yml` file and will be pulled in automatically when you run the project.
 
@@ -28,6 +29,15 @@ For local testing and development:
 - 🌐 [Ngrok](https://ngrok.com/) or [Cloudflare Tunnels](https://www.cloudflare.com/products/tunnel/) (optional, used to expose your local server to the internet for testing purposes)
 
 Note: Ngrok or Cloudflare Tunnels are not required for deployment but can be useful for local testing and development.
+
+## 📊 Metrics
+
+The Voice Bot now includes Prometheus metrics for monitoring session activity:
+
+- `voicebot_session_count`: A counter that tracks the total number of sessions started.
+- `voicebot_active_sessions`: A gauge that shows the current number of active sessions.
+
+These metrics are exposed on port 8000 and can be scraped by a Prometheus server.
 
 ## 🛠️ Environment Setup
 
