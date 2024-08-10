@@ -12,6 +12,7 @@ services:
       - .env
     ports:
       - 6000:3000
+      - 8000:8000  # Expose Prometheus metrics port
     depends_on:
       - redis
     environment:
@@ -32,6 +33,11 @@ services:
       - "9090:9090"
     volumes:
       - ./observe/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
 
 volumes:
   redis_data:
