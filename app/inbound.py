@@ -50,16 +50,25 @@ def start_new_session(session_id):
     # Increment session counter
     SESSION_COUNTER.inc()
     SESSION_GAUGE.inc()
-    logger.info(f"Session {session_id} started")
+    logger.info(f"📞 Session {session_id} started. Active sessions: {SESSION_GAUGE._value.get()}")
 
 def end_session(session_id):
     # Decrement active sessions gauge
     SESSION_GAUGE.dec()
-    logger.info(f"Session {session_id} ended")
+    logger.info(f"📴 Session {session_id} ended. Active sessions: {SESSION_GAUGE._value.get()}")
 
 # Start Prometheus HTTP server
 start_http_server(8000)
 logger.info("Prometheus metrics server started on port 8000")
+
+# Periodic logging of metrics
+import threading
+def log_metrics():
+    while True:
+        logger.info(f"Current metrics - Sessions started: {SESSION_COUNTER._value.get()}, Active sessions: {SESSION_GAUGE._value.get()}")
+        time.sleep(60)  # Log every 60 seconds
+
+threading.Thread(target=log_metrics, daemon=True).start()
 
 app = FastAPI(docs_url=None)
 
@@ -82,18 +91,28 @@ system_prompt = get_system_prompt()
 # )
 
 
+def log_event(event: Event):
+    if event.type == EventType.PHONE_CALL_CONNECTED:
+        start_new_session(event.conversation_id)
+    elif event.type == EventType.PHONE_CALL_ENDED:
+        end_session(event.conversation_id)
+    logger.info(f"Event: {event.type}, Conversation ID: {event.conversation_id}")
+
 telephony_server = TelephonyServer(
     base_url=BASE_URI,
     config_manager=config_manager,
-    events_manager=EventsManager(subscriptions=[
-        EventType.TRANSCRIPT,
-        EventType.TRANSCRIPT_COMPLETE,
-        EventType.PHONE_CALL_CONNECTED,
-        EventType.PHONE_CALL_ENDED,
-        EventType.PHONE_CALL_DID_NOT_CONNECT,
-        EventType.RECORDING,
-        EventType.ACTION,
-    ]),
+    events_manager=EventsManager(
+        subscriptions=[
+            EventType.TRANSCRIPT,
+            EventType.TRANSCRIPT_COMPLETE,
+            EventType.PHONE_CALL_CONNECTED,
+            EventType.PHONE_CALL_ENDED,
+            EventType.PHONE_CALL_DID_NOT_CONNECT,
+            EventType.RECORDING,
+            EventType.ACTION,
+        ],
+        on_event=log_event
+    ),
     inbound_call_configs=[
         TwilioInboundCallConfig(
             url="/inbound_call",
