@@ -92,23 +92,24 @@ class SessionTrackingEventsManager(EventsManager):
             EventType.PHONE_CALL_DID_NOT_CONNECT,
             EventType.RECORDING,
             EventType.ACTION,
-            EventType.SESSION_START,
-            EventType.SESSION_END,
         })
 
     async def handle_event(self, event: Event):
-        if event.type == EventType.SESSION_START:
+        if event.type == EventType.PHONE_CALL_CONNECTED:
             start_new_session(event.session_id)
-        elif event.type == EventType.SESSION_END:
+        elif event.type == EventType.PHONE_CALL_ENDED:
             end_session(event.session_id)
+        elif event.type == EventType.PHONE_CALL_DID_NOT_CONNECT:
+            end_session(event.session_id)
+
 
 telephony_server = TelephonyServer(
     base_url=BASE_URI,
     config_manager=config_manager,
+    events_manager=SessionTrackingEventsManager(),
     inbound_call_configs=[
         TwilioInboundCallConfig(
             url="/inbound_call",
-            event_manager=SessionTrackingEventsManager(),
             agent_config=ChatGPTAgentConfig(
                 initial_message=BaseMessage(text="Hello there, what's your name?"),
                 prompt_preamble=system_prompt,
