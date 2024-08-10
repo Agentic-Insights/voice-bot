@@ -11,6 +11,7 @@ python = ">=3.10,<3.12"
 python-dotenv = "^1.0.1"
 vocode = "0.1.113"
 elevenlabs = "^1.2.2"
+prometheus-client = "^0.20.0"
 
 
 [build-system]

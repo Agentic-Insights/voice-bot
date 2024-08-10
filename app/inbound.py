@@ -8,8 +8,8 @@ from fastapi import FastAPI
 from loguru import logger
 
 # Local application/library specific imports
-from app.speller_agent import SpellerAgentFactory, SpellerAgentConfig
-from app.prompt_handler import get_system_prompt
+# from app.speller_agent import SpellerAgentFactory, SpellerAgentConfig
+from .prompt_handler import get_system_prompt
 
 from vocode.logging import configure_pretty_logging
 from vocode.streaming.models.agent import ChatGPTAgentConfig
@@ -90,7 +90,6 @@ telephony_server = TelephonyServer(
             ),
         )
     ],
-    agent_factory=SpellerAgentFactory(),
 )
 
 app.include_router(telephony_server.get_router())

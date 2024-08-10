@@ -19,6 +19,21 @@ services:
     volumes:
       - ./:/code
 
+  # Observability Stack
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "9091:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./observe/prometheus.yml:/etc/prometheus/prometheus.yml
+
 volumes:
   redis_data:
   vb_data:
+  grafana-data:  
