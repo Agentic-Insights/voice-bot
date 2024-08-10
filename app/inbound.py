@@ -79,6 +79,10 @@ anthropic_config=AnthropicAgentConfig(
     generate_responses=True,
 )
 
+# Define a default call handler
+async def default_call_handler(call):
+    return BaseMessage(text="This is a default response.")
+
 # Create a custom call handler that wraps the original handler and adds session tracking
 def create_session_tracking_call_handler(original_handler):
     async def session_tracking_call_handler(call):
@@ -96,7 +100,7 @@ telephony_server = TelephonyServer(
     inbound_call_configs=[
         TwilioInboundCallConfig(
             url="/inbound_call",
-            call_handler=create_session_tracking_call_handler(TwilioInboundCallConfig.default_call_handler),
+            call_handler=create_session_tracking_call_handler(default_call_handler),
             agent_config=ChatGPTAgentConfig(
                 initial_message=BaseMessage(text="Hello there, what's your name?"),
                 prompt_preamble=system_prompt,
