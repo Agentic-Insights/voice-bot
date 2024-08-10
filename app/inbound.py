@@ -29,7 +29,7 @@ from vocode.streaming.models.telephony import TwilioConfig
 from vocode.streaming.telephony.config_manager.redis_config_manager import RedisConfigManager
 from vocode.streaming.telephony.server.base import TelephonyServer, TwilioInboundCallConfig
 from vocode.streaming.models.events import EventType
-from .voice_bot_events_manager import VoiceBotEventsManager
+from .voice_bot_events_manager import VoiceBotEventsManager, SESSION_COUNTER, SESSION_GAUGE
 
 from vocode.streaming.synthesizer.eleven_labs_synthesizer import ElevenLabsSynthesizerConfig
 from vocode.streaming.synthesizer.eleven_labs_synthesizer import AudioEncoding
@@ -47,16 +47,6 @@ logger.info("🤖 Voice Bot Server starting...")
 SESSION_COUNTER = Counter('voicebot_session_count', 'Number of sessions started')
 SESSION_GAUGE = Gauge('voicebot_active_sessions', 'Current number of active sessions')
 
-def start_new_session(session_id):
-    # Increment session counter
-    SESSION_COUNTER.inc()
-    SESSION_GAUGE.inc()
-    logger.info(f"📞 Session {session_id} started. Active sessions: {SESSION_GAUGE._value.get()}")
-
-def end_session(session_id):
-    # Decrement active sessions gauge
-    SESSION_GAUGE.dec()
-    logger.info(f"📴 Session {session_id} ended. Active sessions: {SESSION_GAUGE._value.get()}")
 
 # Start Prometheus HTTP server
 start_http_server(8000)
