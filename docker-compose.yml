@@ -7,7 +7,9 @@ services:
     volumes:
       - redis_data:/data
   app:
-    image: voice-bot-server:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     env_file:
       - .env
     ports:
@@ -27,6 +29,7 @@ services:
       - "9091:3000"
     volumes:
       - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning/dashboards:/var/lib/grafana/dashboards
   prometheus:
     image: prom/prometheus
     ports:

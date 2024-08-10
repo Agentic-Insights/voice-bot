@@ -2,13 +2,6 @@ global:
   scrape_interval: 15s
 
 scrape_configs:
-  - job_name: 'voicebot'
-    static_configs:
-      - targets: ['host.docker.internal:6000']
-global:
-  scrape_interval: 15s
-
-scrape_configs:
   - job_name: 'voice-bot'
     static_configs:
-      - targets: ['app:8000']
+      - targets: ['host.docker.internal:8000']
