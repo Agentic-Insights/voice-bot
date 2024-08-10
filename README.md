@@ -61,13 +61,9 @@ The TelephonyServer is responsible for receiving and making phone calls. The ser
 
 ### 🚀 Running the Server
 
-1. Build the telephony app Docker image:
+1. Build and run the application using docker-compose:
    ```
-   docker build -t voice-bot-server .
-   ```
-2. Run the application using docker-compose:
-   ```
-   docker-compose up
+   docker-compose up --build
    ```
 
 ## 📥 Setting up an Inbound Number
