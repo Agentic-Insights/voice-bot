@@ -84,7 +84,17 @@ system_prompt = get_system_prompt()
 class SessionTrackingEventsManager(EventsManager):
     def __init__(self, subscriptions: List[EventType] = []):
         super().__init__(subscriptions)
-        self.subscriptions.update({EventType.SESSION_START, EventType.SESSION_END})
+        self.subscriptions.update({
+            EventType.TRANSCRIPT,
+            EventType.TRANSCRIPT_COMPLETE,
+            EventType.PHONE_CALL_CONNECTED,
+            EventType.PHONE_CALL_ENDED,
+            EventType.PHONE_CALL_DID_NOT_CONNECT,
+            EventType.RECORDING,
+            EventType.ACTION,
+            EventType.SESSION_START,
+            EventType.SESSION_END
+        })
 
     async def handle_event(self, event: Event):
         if event.type == EventType.SESSION_START:
