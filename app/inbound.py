@@ -81,32 +81,22 @@ system_prompt = get_system_prompt()
 #     generate_responses=True,
 # )
 
-class SessionTrackingEventsManager(EventsManager):
-    def __init__(self, subscriptions: List[EventType] = []):
-        super().__init__(subscriptions)
-        self.subscriptions.update({
-            EventType.TRANSCRIPT,
-            EventType.TRANSCRIPT_COMPLETE,
-            EventType.PHONE_CALL_CONNECTED,
-            EventType.PHONE_CALL_ENDED,
-            EventType.PHONE_CALL_DID_NOT_CONNECT,
-            EventType.RECORDING,
-            EventType.ACTION,
-        })
-
-    async def handle_event(self, event: Event):
-        if event.type == EventType.PHONE_CALL_CONNECTED:
-            start_new_session(event.session_id)
-        elif event.type == EventType.PHONE_CALL_ENDED:
-            end_session(event.session_id)
-        elif event.type == EventType.PHONE_CALL_DID_NOT_CONNECT:
-            end_session(event.session_id)
 
 
 telephony_server = TelephonyServer(
     base_url=BASE_URI,
     config_manager=config_manager,
-    events_manager=SessionTrackingEventsManager(),
+    events_manager=EventsManager(subscriptions=[
+        EventType.TRANSCRIPT,
+        EventType.TRANSCRIPT_COMPLETE,
+        EventType.PHONE_CALL_CONNECTED,
+        EventType.PHONE_CALL_ENDED,
+        EventType.PHONE_CALL_DID_NOT_CONNECT,
+        EventType.RECORDING,
+        EventType.ACTION,
+        EventType.SESSION_START,
+        EventType.SESSION_END,
+    ]),
     inbound_call_configs=[
         TwilioInboundCallConfig(
             url="/inbound_call",
