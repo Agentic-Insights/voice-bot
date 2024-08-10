@@ -27,8 +27,9 @@ from vocode.streaming.models.agent import ChatGPTAgentConfig
 from vocode.streaming.models.message import BaseMessage
 from vocode.streaming.models.telephony import TwilioConfig
 from vocode.streaming.telephony.config_manager.redis_config_manager import RedisConfigManager
-from vocode.streaming.telephony.server.base import TelephonyServer, TwilioInboundCallConfig, EventsManager
-from vocode.streaming.models.events import Event, EventType
+from vocode.streaming.telephony.server.base import TelephonyServer, TwilioInboundCallConfig
+from vocode.streaming.models.events import EventType
+from .voice_bot_events_manager import VoiceBotEventsManager
 
 from vocode.streaming.synthesizer.eleven_labs_synthesizer import ElevenLabsSynthesizerConfig
 from vocode.streaming.synthesizer.eleven_labs_synthesizer import AudioEncoding
@@ -94,7 +95,7 @@ system_prompt = get_system_prompt()
 telephony_server = TelephonyServer(
     base_url=BASE_URI,
     config_manager=config_manager,
-    events_manager=EventsManager(
+    events_manager=VoiceBotEventsManager(
         subscriptions=[
             EventType.TRANSCRIPT,
             EventType.TRANSCRIPT_COMPLETE,
