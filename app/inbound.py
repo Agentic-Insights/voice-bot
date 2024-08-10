@@ -26,7 +26,8 @@ from vocode.streaming.models.agent import ChatGPTAgentConfig
 from vocode.streaming.models.message import BaseMessage
 from vocode.streaming.models.telephony import TwilioConfig
 from vocode.streaming.telephony.config_manager.redis_config_manager import RedisConfigManager
-from vocode.streaming.telephony.server.base import TelephonyServer, TwilioInboundCallConfig
+from vocode.streaming.telephony.server.base import TelephonyServer, TwilioInboundCallConfig, EventsManager
+from vocode.streaming.models.events import Event, EventType
 
 from vocode.streaming.synthesizer.eleven_labs_synthesizer import ElevenLabsSynthesizerConfig
 from vocode.streaming.synthesizer.eleven_labs_synthesizer import AudioEncoding
@@ -79,20 +80,16 @@ system_prompt = get_system_prompt()
 #     generate_responses=True,
 # )
 
-# Define a default call handler
-async def default_call_handler(call):
-    return BaseMessage(text="This is a default response.")
+class SessionTrackingEventsManager(EventsManager):
+    def __init__(self, subscriptions: List[EventType] = []):
+        super().__init__(subscriptions)
+        self.subscriptions.update({EventType.SESSION_START, EventType.SESSION_END})
 
-# Create a custom call handler that wraps the original handler and adds session tracking
-def create_session_tracking_call_handler(original_handler):
-    async def session_tracking_call_handler(call):
-        session_id = call.conversation_id
-        start_new_session(session_id)
-        try:
-            return await original_handler(call)
-        finally:
-            end_session(session_id)
-    return session_tracking_call_handler
+    async def handle_event(self, event: Event):
+        if event.type == EventType.SESSION_START:
+            start_new_session(event.session_id)
+        elif event.type == EventType.SESSION_END:
+            end_session(event.session_id)
 
 telephony_server = TelephonyServer(
     base_url=BASE_URI,
@@ -100,7 +97,7 @@ telephony_server = TelephonyServer(
     inbound_call_configs=[
         TwilioInboundCallConfig(
             url="/inbound_call",
-            call_handler=create_session_tracking_call_handler(default_call_handler),
+            event_manager=SessionTrackingEventsManager(),
             agent_config=ChatGPTAgentConfig(
                 initial_message=BaseMessage(text="Hello there, what's your name?"),
                 prompt_preamble=system_prompt,
