@@ -91,13 +91,6 @@ system_prompt = get_system_prompt()
 # )
 
 
-def log_event(event: Event):
-    if event.type == EventType.PHONE_CALL_CONNECTED:
-        start_new_session(event.conversation_id)
-    elif event.type == EventType.PHONE_CALL_ENDED:
-        end_session(event.conversation_id)
-    logger.info(f"Event: {event.type}, Conversation ID: {event.conversation_id}")
-
 telephony_server = TelephonyServer(
     base_url=BASE_URI,
     config_manager=config_manager,
@@ -110,8 +103,7 @@ telephony_server = TelephonyServer(
             EventType.PHONE_CALL_DID_NOT_CONNECT,
             EventType.RECORDING,
             EventType.ACTION,
-        ],
-        on_event=log_event
+        ]
     ),
     inbound_call_configs=[
         TwilioInboundCallConfig(
