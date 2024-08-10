@@ -92,6 +92,8 @@ class SessionTrackingEventsManager(EventsManager):
             EventType.PHONE_CALL_DID_NOT_CONNECT,
             EventType.RECORDING,
             EventType.ACTION,
+            EventType.SESSION_START,
+            EventType.SESSION_END,
         })
 
     async def handle_event(self, event: Event):
