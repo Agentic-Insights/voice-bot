@@ -22,7 +22,7 @@ from .prompt_handler import get_system_prompt
 
 from vocode.logging import configure_pretty_logging
 from vocode.streaming.models.agent import ChatGPTAgentConfig
-from vocode.streaming.models.agent import AnthropicAgentConfig
+# from vocode.streaming.models.agent import AnthropicAgentConfig
 from vocode.streaming.models.message import BaseMessage
 from vocode.streaming.models.telephony import TwilioConfig
 from vocode.streaming.telephony.config_manager.redis_config_manager import RedisConfigManager
@@ -72,12 +72,12 @@ if not BASE_URI:
 # Get the system prompt
 system_prompt = get_system_prompt()
 
-anthropic_config=AnthropicAgentConfig(
-    api_key=os.environ["ANTHROPIC_API_KEY"],
-    model=os.environ["LLM_MODEL"],
-    prompt_preamble=system_prompt,
-    generate_responses=True,
-)
+# anthropic_config=AnthropicAgentConfig(
+#     api_key=os.environ["ANTHROPIC_API_KEY"],
+#     model=os.environ["LLM_MODEL"],
+#     prompt_preamble=system_prompt,
+#     generate_responses=True,
+# )
 
 # Define a default call handler
 async def default_call_handler(call):
