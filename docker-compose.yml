@@ -29,18 +29,18 @@ services:
       - "9091:3000"
     volumes:
       - grafana-data:/var/lib/grafana
-      - ./grafana/provisioning/dashboards:/var/lib/grafana/dashboards
+      - ./observe/grafana/provisioning:/var/lib/grafana/
   prometheus:
     image: prom/prometheus
     ports:
       - "9090:9090"
     volumes:
       - ./observe/prometheus.yml:/etc/prometheus/prometheus.yml
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
-      - '--web.console.templates=/usr/share/prometheus/consoles'
+    # command:
+    #   - '--config.file=/etc/prometheus/prometheus.yml'
+    #   - '--storage.tsdb.path=/prometheus'
+    #   - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+    #   - '--web.console.templates=/usr/share/prometheus/consoles'
 
 volumes:
   redis_data:

@@ -8,3 +8,5 @@ app/__pycache__/
 system_prompt.md
 my-values.yaml
 .aider*
+
+grafana.db

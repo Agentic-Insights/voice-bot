@@ -46,8 +46,8 @@ logger.info("Prometheus metrics server started on port 8000")
 import threading
 def log_metrics():
     while True:
-        logger.info(f"Current metrics - Sessions started: {SESSION_COUNTER._value.get()}, Active sessions: {SESSION_GAUGE._value.get()}")
-        time.sleep(60)  # Log every 60 seconds
+        logger.debug(f"Current metrics - Sessions started: {SESSION_COUNTER._value.get()}, Active sessions: {SESSION_GAUGE._value.get()}")
+        time.sleep(10)  # Log every 60 seconds
 
 threading.Thread(target=log_metrics, daemon=True).start()
 
@@ -77,8 +77,6 @@ telephony_server = TelephonyServer(
     config_manager=config_manager,
     events_manager=VoiceBotEventsManager(
         subscriptions=[
-            EventType.TRANSCRIPT,
-            EventType.TRANSCRIPT_COMPLETE,
             EventType.PHONE_CALL_CONNECTED,
             EventType.PHONE_CALL_ENDED,
             EventType.PHONE_CALL_DID_NOT_CONNECT,
