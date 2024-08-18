@@ -12,11 +12,6 @@ from loguru import logger
 from prometheus_client import start_http_server, Counter, Gauge
 import time
 
-# Prometheus
-from prometheus_client import start_http_server, Counter, Gauge
-import time
-
-
 # Local application/library specific imports
 # from app.speller_agent import SpellerAgentFactory, SpellerAgentConfig
 from .prompt_handler import get_system_prompt
@@ -27,8 +22,9 @@ from vocode.streaming.models.agent import ChatGPTAgentConfig
 from vocode.streaming.models.message import BaseMessage
 from vocode.streaming.models.telephony import TwilioConfig
 from vocode.streaming.telephony.config_manager.redis_config_manager import RedisConfigManager
-from vocode.streaming.telephony.server.base import TelephonyServer, TwilioInboundCallConfig, EventsManager
-from vocode.streaming.models.events import Event, EventType
+from vocode.streaming.telephony.server.base import TelephonyServer, TwilioInboundCallConfig
+from vocode.streaming.models.events import EventType
+from .voice_bot_events_manager import VoiceBotEventsManager, SESSION_COUNTER, SESSION_GAUGE
 
 from vocode.streaming.synthesizer.eleven_labs_synthesizer import ElevenLabsSynthesizerConfig
 from vocode.streaming.synthesizer.eleven_labs_synthesizer import AudioEncoding
@@ -42,24 +38,18 @@ configure_pretty_logging()
 
 logger.info("🤖 Voice Bot Server starting...")
 
-# Create Prometheus metrics
-SESSION_COUNTER = Counter('voicebot_session_count', 'Number of sessions started')
-SESSION_GAUGE = Gauge('voicebot_active_sessions', 'Current number of active sessions')
-
-def start_new_session(session_id):
-    # Increment session counter
-    SESSION_COUNTER.inc()
-    SESSION_GAUGE.inc()
-    logger.info(f"Session {session_id} started")
-
-def end_session(session_id):
-    # Decrement active sessions gauge
-    SESSION_GAUGE.dec()
-    logger.info(f"Session {session_id} ended")
-
 # Start Prometheus HTTP server
 start_http_server(8000)
 logger.info("Prometheus metrics server started on port 8000")
+
+# Periodic logging of metrics
+import threading
+def log_metrics():
+    while True:
+        logger.debug(f"Current metrics - Sessions started: {SESSION_COUNTER._value.get()}, Active sessions: {SESSION_GAUGE._value.get()}")
+        time.sleep(10)  # Log every 60 seconds
+
+threading.Thread(target=log_metrics, daemon=True).start()
 
 app = FastAPI(docs_url=None)
 
@@ -85,15 +75,15 @@ system_prompt = get_system_prompt()
 telephony_server = TelephonyServer(
     base_url=BASE_URI,
     config_manager=config_manager,
-    events_manager=EventsManager(subscriptions=[
-        EventType.TRANSCRIPT,
-        EventType.TRANSCRIPT_COMPLETE,
-        EventType.PHONE_CALL_CONNECTED,
-        EventType.PHONE_CALL_ENDED,
-        EventType.PHONE_CALL_DID_NOT_CONNECT,
-        EventType.RECORDING,
-        EventType.ACTION,
-    ]),
+    events_manager=VoiceBotEventsManager(
+        subscriptions=[
+            EventType.PHONE_CALL_CONNECTED,
+            EventType.PHONE_CALL_ENDED,
+            EventType.PHONE_CALL_DID_NOT_CONNECT,
+            EventType.RECORDING,
+            EventType.ACTION,
+        ]
+    ),
     inbound_call_configs=[
         TwilioInboundCallConfig(
             url="/inbound_call",
